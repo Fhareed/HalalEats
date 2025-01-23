@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RegisterPage from "./pages/RegisterPage"; // Adjust the path if needed
 import Homepage from "./pages/HomePage"; // Adjust path for your Homepage if applicable
 import LoginPage from "./pages/loginPage"; 
-import ButcherListPage from "./pages/ButcherListPage"; 
+import ButcherListPage from "./pages/ButcherListPage";
+import MapPage from "./pages/MapPage"; 
 
 const App = () => {
   return (
@@ -20,6 +21,10 @@ const App = () => {
 
         {/* Route for the butcher list page */}
         <Route path="/butchers" element={<ButcherListPage />} />
+
+        {/* Route for the map page */}
+        <Route path="/map" element={<MapPage />} />
+
 
         
       </Routes>

@@ -1,6 +1,12 @@
 const Butcher = require("../models.js/Butcher");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const NodeGeocoder = require("node-geocoder");
+
+// Configure geocoder
+const geocoder = NodeGeocoder({
+  provider: "openstreetmap",
+});
 
 // Function to register a butcher
 const registerButcher = async (req, res) => {
@@ -17,25 +23,20 @@ const registerButcher = async (req, res) => {
   } = req.body;
 
   try {
-    // Check all required fields
-    if (
-      !name ||
-      !email ||
-      !password ||
-      !role ||
-      !location ||
-      !city ||
-      !phone ||
-      !products ||
-      !price
-    ) {
+    if (!name || !email || !password || !role || !location || !city || !phone || !products || !price) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Log request body for debugging
-    //console.log(req.body);
-
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Geocode location
+    const geoData = await geocoder.geocode(location);
+    if (!geoData.length) {
+      return res.status(400).json({ message: "Invalid address" });
+    }
+
+    const { latitude, longitude } = geoData[0];
+
     const newButcher = new Butcher({
       name,
       email,
@@ -46,12 +47,25 @@ const registerButcher = async (req, res) => {
       products,
       price,
       role,
+      latitude,
+      longitude,
     });
 
     await newButcher.save();
     res.status(201).json({ message: "Butcher registered successfully" });
   } catch (err) {
-    console.error(err); // Log the error for debugging
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// New map route to fetch butcher locations
+const getButcherLocations = async (req, res) => {
+  try {
+    const butchers = await Butcher.find({}, "name latitude longitude location");
+    res.status(200).json(butchers);
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -62,7 +76,7 @@ const getButchers = async (req, res) => {
 
   try {
     const query = {};
-    if (city) query.city = city;
+    if (city) query.city = { $regex: new RegExp(city, "i") };
 
     // Process services query
     if (products) {
@@ -128,4 +142,5 @@ module.exports = {
   registerButcher,
   getButchers,
   loginButcher,
+  getButcherLocations
 };

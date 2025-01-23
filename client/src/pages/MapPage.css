@@ -1,0 +1,134 @@
+.map-page {
+  display: flex;
+  flex-direction: column;
+  width: 210%;
+  height: 100vh; /* Full height of the viewport */
+  margin: 0;
+  padding: 40px;
+}
+
+.map-title {
+  color: #8b6f5e;
+  margin: 10px;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.map-container {
+  flex: 1; /* Take up the remaining space */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  margin: 0;
+  padding: 0;
+}
+
+
+
+  
+  /* Map Container */
+  .leaflet-container {
+    height: 80vh; /* Full height for the map */
+    width: 100%; /* Full width */
+    margin: 0 auto;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for the map */
+  }
+  
+  /* Popup Styles */
+  .leaflet-popup-content {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    text-align: left;
+  }
+  
+  .leaflet-popup-content b {
+    color: #8b6f5e;
+    font-size: 1.2rem;
+  }
+  
+  .leaflet-popup-tip {
+    background: #8b6f5e;
+  }
+  
+  .leaflet-popup-close-button {
+    color: #8b6f5e;
+    font-size: 1.2rem;
+  }
+
+  /* Navbar/Header Styles */
+.map-header {
+  display: flex;
+  background-size: cover;
+  background-position: center;
+  position: sticky;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #6d4c41, #8b6f5e);
+  color: black;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  border-bottom: 4px solid #6d4c41;
+  width: 100%; /* Full width of the page */
+  margin-bottom: 20px;
+}
+
+.btn {
+  background: transparent;
+  margin-left: 15px;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signup-btn:hover {
+  background: #b58868;
+  color: white;
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-logo img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.header-logo h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.header-nav {
+  display: flex;
+  gap: 20px;
+}
+
+
+.header-nav a img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Responsive Design */
+
+@media screen and (max-width: 768px) {
+  .header-nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .map-title {
+    font-size: 1.5rem;
+  }
+
+  .map-title {
+    font-size: 1.5rem;
+  }
+}

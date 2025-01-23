@@ -3,6 +3,7 @@ const Butcher = require("../models.js/Butcher");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+
 // Register a new user
 const registerUser = async (req, res) => {
   const { name, email, password, role } = req.body;
@@ -71,7 +72,7 @@ const getAvailableButchers = async (req, res) => {
 
   try {
     const query = {};
-    if (location) query.location = location;
+    if (location) query.location = { $regex: new RegExp(location, "i") };
     if (criteria) query.products = { $regex: new RegExp(criteria, "i") };
 
     const butchers = await Butcher.find(query);

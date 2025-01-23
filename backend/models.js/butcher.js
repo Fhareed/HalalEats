@@ -10,6 +10,8 @@ const ButcherSchema = new mongoose.Schema({
   products: { type: String, required: true }, // Ensure this field is properly defined
   price: { type: String, required: true },
   role: { type: String, required: true },
+  latitude: { type: Number }, 
+  longitude: { type: Number }, 
   reviews: [
     {
       userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
